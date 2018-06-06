@@ -44,7 +44,7 @@ Delay 10000
 //首先判断宽带连接是否已连接
  OnLine = Plugin.Net.IsOnline()
 
-If OnLine = False Then 
+If OnLine = True Then 
  
 Call Plugin.Web.Tips("拨号成功,即将测速")
     //189测速  
