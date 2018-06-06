@@ -1,0 +1,47 @@
+
+
+Event Form1.Button1.Click
+
+
+//先输入账号密码，然后按钮按下，开始连接。
+
+//UserVar kuandaizhuanghao="ip15500000000" "宽带账号"  
+//UserVar kuandaimima="00000000" "宽带密码"  
+
+
+//先断开宽带连接
+Call Plugin.Net.HangUp()
+
+Delay 2000
+/*
+定义两个字符串，一个是宽带账号，一个是密码 
+
+分别是kuandaizhanghao 
+和kuandaimima 
+
+然后做一个界面，两个空，一个是宽带账号，一个是宽带密码
+
+先从界面中获取宽带账号和宽带密码，为这两个字符串赋值。 
+
+然后执行宽带连接。 
+*/
+
+
+
+
+
+RunApp "Rasdial telecom Form1.InputBox1.Text Form1.InputBox2.Text"
+
+
+End Event 
+
+Delay 300000
+
+
+ OnLine = Plugin.Net.IsOnline()
+
+If OnLine = True Then  
+    //GoSub 拨号   
+    189测速
+    
+End If 
