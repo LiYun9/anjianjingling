@@ -1,4 +1,24 @@
 
+Event Form1.InputBox1.Change
+
+End Event
+Event Form1.InputBox2.Change
+
+End Event
+Event Form1.InputBox3.Change
+
+End Event
+Event Form1.InputBox4.Change
+
+End Event
+
+
+
+
+
+
+
+
 Event Form1.Button1.Click
 
 
@@ -13,28 +33,145 @@ Call Plugin.Net.HangUp()
 
 Delay 2000
 /*
-定义两个字符串，一个是宽带账号，一个是密码 
 
-分别是kuandaizhanghao 
-和kuandaimima 
 
 然后做一个界面，两个空，一个是宽带账号，一个是宽带密码
 
 先从界面中获取宽带账号和宽带密码，为这两个字符串赋值。 
 
 然后执行宽带连接。 
+
+这个宽带连接的命令花了我一天，最后用笨方法，复制粘贴。。。
 */
 
 
 
-Call Plugin.Web.Tips("开始拨号")
+Delay 2000
 
-RunApp "Rasdial telecom Form1.InputBox1.Text Form1.InputBox2.Text"
+RunApp "notepad.exe"
+
+Delay 2000
+
+
+SayString "Rasdial telecom "
+Delay 200
+
+Delay 200
+SayString Form1.InputBox1.Text
+Delay 200
+KeyPress "Space", 1
+Delay 200
+    SayString Form1.InputBox2.Text
+    Delay 200
+    
+    //全选Ctrl+A
+    
+    
+    
+KeyDown 17, 1
+KeyPress 65, 1
+KeyUp 17, 1
+
+   //复制Ctrl+C
+   
+   Delay 200
+KeyDown 17, 1
+KeyPress 67, 1
+KeyUp 17, 1
+
+   
+   //退出文档，不保存Alt+F--X--N
+   
+KeyDown 18, 1
+KeyPress 70, 1
+KeyUp 18, 1
+
+Delay 200
+
+KeyPress "X", 1
+
+Delay 200
+
+KeyPress "N", 1
+
+//打开cmd程序
+
+ RunApp "cmd"
+   Delay 1000
+
+   
+    //在cmd中粘贴，不能用Ctrl+V，
+    //粘贴Alt+Space(32)--E--P
+    
+KeyDown 18, 1
+KeyPress 32, 1
+KeyUp 18, 1
+
+Delay 200
+
+KeyPress "E", 1
+
+Delay 200
+
+KeyPress "P", 1
+
+Delay 200
 
 
 
+//回车
+
+KeyPress "Enter", 1
+
+//不管有没有连接上宽带连接，10s后关闭cmd
 
 Delay 10000
+
+
+//关闭cmd
+
+//Alt+Space--C
+KeyDown 18, 1
+KeyPress 32, 1
+KeyUp 18, 1
+
+Delay 200
+
+KeyPress "C", 1
+
+
+
+
+
+
+
+
+//RunApp  "cmd"
+
+//RunApp "Rasdial telecom Form1.InputBox1.Text Form1.InputBox2.Text"
+
+//Delay 3000
+
+
+//Call Plugin.Msg.Tips("Form1.InputBox1.Text")
+
+//SayString "Form1.InputBox1.Text"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Delay 10000
 
 
 
