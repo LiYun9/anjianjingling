@@ -1,0 +1,283 @@
+
+Event Form1.InputBox1.Change
+
+End Event
+Event Form1.InputBox2.Change
+
+End Event
+Event Form1.InputBox3.Change
+
+End Event
+Event Form1.InputBox4.Change
+
+End Event
+
+
+
+
+
+
+
+
+Event Form1.Button1.Click
+
+//改桥接
+//先输入账号密码，然后按钮按下，开始连接。
+//测速
+//改回路由
+//等待下一次测试
+
+
+
+
+
+//1.改桥接
+
+ProcessID=Plugin.Web.Bind("wqm.exe")
+Delay 2000
+If ProcessID=0 then
+  MessageBox "网页按键精灵没有运行"
+  EndScript
+End If
+Call Plugin.Web.Tips("改桥接")
+
+
+
+
+
+Call Plugin.Web.Go("http://192.168.2.1/cgi-bin/luci?username=useradmin&psd=nE7jA%5m")
+Delay 3000
+Call Plugin.Web.Go("http://192.168.2.1:8080/html/bbsp/wan/wane8c.asp?3")
+
+Delay 7000
+
+
+Call Plugin.Web.HtmlSelect("IP_Bridged","id:WanConnectMode_select")
+
+Delay 3000
+
+Call Plugin.Web.HtmlClick("tag:input&id:ButtonApply")
+Delay 5000
+//先断开宽带连接
+Call Plugin.Web.Tips("开始宽带连接")
+Call Plugin.Net.HangUp()
+
+Delay 2000
+/*
+
+
+然后做一个界面，两个空，一个是宽带账号，一个是宽带密码
+
+先从界面中获取宽带账号和宽带密码，为这两个字符串赋值。 
+
+然后执行宽带连接。 
+
+这个宽带连接的命令花了我一天，最后用笨方法，复制粘贴。。。
+*/
+
+
+
+Delay 2000
+
+RunApp "notepad.exe"
+
+Delay 2000
+
+
+SayString "Rasdial telecom "
+Delay 200
+
+Delay 200
+SayString Form1.InputBox1.Text
+Delay 200
+KeyPress "Space", 1
+Delay 200
+    SayString Form1.InputBox2.Text
+    Delay 200
+    
+    //全选Ctrl+A
+    
+    
+    
+KeyDown 17, 1
+KeyPress 65, 1
+KeyUp 17, 1
+
+   //复制Ctrl+C
+   
+   Delay 200
+KeyDown 17, 1
+KeyPress 67, 1
+KeyUp 17, 1
+
+   
+   //退出文档，不保存Alt+F--X--N
+   
+KeyDown 18, 1
+KeyPress 70, 1
+KeyUp 18, 1
+
+Delay 200
+
+KeyPress "X", 1
+
+Delay 200
+
+KeyPress "N", 1
+
+//打开cmd程序
+
+ RunApp "cmd"
+   Delay 1000
+
+   
+    //在cmd中粘贴，不能用Ctrl+V，
+    //粘贴Alt+Space(32)--E--P
+    
+KeyDown 18, 1
+KeyPress 32, 1
+KeyUp 18, 1
+
+Delay 200
+
+KeyPress "E", 1
+
+Delay 200
+
+KeyPress "P", 1
+
+Delay 200
+
+
+
+//回车
+
+KeyPress "Enter", 1
+
+//不管有没有连接上宽带连接，10s后关闭cmd
+
+Delay 10000
+
+
+//关闭cmd
+
+//Alt+Space--C
+KeyDown 18, 1
+KeyPress 32, 1
+KeyUp 18, 1
+
+Delay 200
+
+KeyPress "C", 1
+
+
+
+
+
+
+
+
+//RunApp  "cmd"
+
+//RunApp "Rasdial telecom Form1.InputBox1.Text Form1.InputBox2.Text"
+
+//Delay 3000
+
+
+//Call Plugin.Msg.Tips("Form1.InputBox1.Text")
+
+//SayString "Form1.InputBox1.Text"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Delay 10000
+
+
+
+
+
+
+//首先判断宽带连接是否已连接
+ OnLine = Plugin.Net.IsOnline()
+
+If OnLine = True Then 
+ 
+Call Plugin.Web.Tips("拨号成功,即将测速")
+    //189测速  
+    Delay 2000
+  ProcessID=Plugin.Web.Bind("wqm.exe")
+Delay 2000
+If ProcessID=0 then
+  MessageBox "网页按键精灵没有运行"
+  EndScript
+End If
+
+Delay 5000
+
+Call Plugin.Web.Go("http://stratehe.xbsafe.cn/webspeed/main.html")
+
+Delay 10000
+
+Call Plugin.Web.Go("http://stratehe.xbsafe.cn/webspeed/speed_down.html?info%3D%7Btestaddr%3Dhttp%3A//222.222.104.254/netspeet/data/speet.dat%7Chttp%3A//219.148.64.234%3A8990/netspeet/data/speet.dat%7Chttp%3A//219.148.64.226/netspeet/data/speet.dat%7Chttp%3A//27.129.25.190%3A8990/netspeet/data/speet.dat%2Cspeed%3D200M%2Cspeedup%3D256K%2Cclientip%3D106.113.80.216%2Csocketser%3D61.191.46.172%2Csocketport%3D21358%2Csocketser2%3D61.191.46.173%2Csocketport2%3D21358%2Cserver%3Dprov*05%23city*311%23adslacc*ip15504844711%23point*%u77F3%u5BB6%u5E84%23url*stratehe.xbsafe.cn%23cityname*%u77F3%u5BB6%u5E84%23exe*http%3A//clientdown.xbsafe.cn%3A8990/download/v3.0/he/ct10000_he.exe%23usertype*19501%7D")
+Delay 15000
+
+//测速结束即刻把宽带连接断开
+
+Call Plugin.Net.HangUp()
+Delay 1000
+
+Else 
+MessageBox "宽带连接已断开"
+
+
+    
+End If
+
+
+//4.改路由
+
+
+ 
+ ProcessID=Plugin.Web.Bind("wqm.exe")
+Delay 2000
+If ProcessID=0 then
+  MessageBox "网页按键精灵没有运行"
+  EndScript
+End If
+
+Call Plugin.Web.Tips("测速完成，改回路由")
+
+
+
+
+Call Plugin.Web.Go("http://192.168.2.1/cgi-bin/luci?username=useradmin&psd=nE7jA%5m")
+Delay 3000
+Call Plugin.Web.Go("http://192.168.2.1:8080/html/bbsp/wan/wane8c.asp?3")
+
+Delay 7000
+
+
+Call Plugin.Web.HtmlSelect("IP_Routed","id:WanConnectMode_select")
+
+Delay 3000
+
+Call Plugin.Web.HtmlClick("tag:input&id:ButtonApply")
+ 
+ 
+Delay 5000 
+ Call Plugin.Web.Tips("测速完成等待下一次测试")
+ End Event 
+ 
+ 
